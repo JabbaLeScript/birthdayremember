@@ -11,5 +11,5 @@ import java.util.List;
 @Repository
 public interface PersonRepository extends JpaRepository<Person, Integer>, JpaSpecificationExecutor<Person> {
 
-    public Person findByName(String name);
+    public Person findByFirstName(String name);
 }

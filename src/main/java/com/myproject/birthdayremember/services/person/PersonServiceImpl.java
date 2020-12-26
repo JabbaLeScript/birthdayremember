@@ -8,7 +8,6 @@ import org.springframework.stereotype.Service;
 import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
-import java.util.concurrent.ExecutionException;
 
 @Service
 public class PersonServiceImpl implements ITPersonService {
@@ -42,7 +41,7 @@ public class PersonServiceImpl implements ITPersonService {
 
     @Override
     public Person findAPerson(String person) {
-        return this.personRepository.findByName(person);
+        return this.personRepository.findByFirstName(person);
     }
 
     @Override
@@ -50,8 +49,8 @@ public class PersonServiceImpl implements ITPersonService {
         Optional<Person> optionalPerson = this.personRepository.findById(personId);
         Person rPerson = optionalPerson.get();
 
-        rPerson.setName(person.getName());
-        rPerson.setSurname(person.getSurname());
+        rPerson.setFirstName(person.getFirstName());
+        rPerson.setLastName(person.getLastName());
         rPerson.setDateOfBirth(person.getDateOfBirth());
 
         this.setbirthDay(rPerson);

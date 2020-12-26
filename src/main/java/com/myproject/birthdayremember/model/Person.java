@@ -10,9 +10,9 @@ public class Person {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private int id;
 
-    private String name;
+    private String firstName;
 
-    private String surname;
+    private String lastName;
 
     private LocalDate dateOfBirth;
 
@@ -22,9 +22,9 @@ public class Person {
     protected Person() {
     }
 
-    public Person(String name, String surname, LocalDate dateOfBirth) {
-        this.name = name;
-        this.surname = surname;
+    public Person(String firstName, String lastName, LocalDate dateOfBirth) {
+        this.firstName = firstName;
+        this.lastName = lastName;
         this.dateOfBirth = dateOfBirth;
         this.birthDay = false;
     }
@@ -41,12 +41,12 @@ public class Person {
         return id;
     }
 
-    public String getName() {
-        return name;
+    public String getFirstName() {
+        return firstName;
     }
 
-    public String getSurname() {
-        return surname;
+    public String getLastName() {
+        return lastName;
     }
 
     public LocalDate getDateOfBirth() {
@@ -61,12 +61,12 @@ public class Person {
         this.birthDay = birthDay;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setFirstName(String name) {
+        this.firstName = name;
     }
 
-    public void setSurname(String surname) {
-        this.surname = surname;
+    public void setLastName(String surname) {
+        this.lastName = surname;
     }
 
     public void setDateOfBirth(LocalDate dateOfBirth) {
@@ -77,8 +77,8 @@ public class Person {
     public String toString() {
         return "Person{" +
                 "id=" + id +
-                ", name='" + name + '\'' +
-                ", surname='" + surname + '\'' +
+                ", name='" + firstName + '\'' +
+                ", surname='" + lastName + '\'' +
                 ", dateOfBirth=" + dateOfBirth +
                 ", birthDay=" + birthDay +
                 '}';

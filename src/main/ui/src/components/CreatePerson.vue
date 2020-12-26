@@ -1,14 +1,13 @@
 <template>
-
   <div class="container">
     <div class="row">
       <div class="col-md-7 mrgnbtm">
-        <h2>Create User</h2>
+        <h2>Create Person</h2>
         <form>
           <div class="row">
             <div class="form-group col-md-6">
               <label htmlFor="exampleInputEmail1">First Name</label>
-              <input type="text" class="form-control" v-model="firstName" name="firstname" id="firstname" aria-describedby="emailHelp" placeholder="First Name" />
+              <input type="text" class="form-control" v-model="firstName" name="firstname" id="firstname" placeholder="First Name" />
             </div>
             <div class="form-group col-md-6">
               <label htmlFor="exampleInputPassword1">Last Name</label>
