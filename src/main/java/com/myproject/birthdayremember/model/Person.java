@@ -1,9 +1,15 @@
 package com.myproject.birthdayremember.model;
 
+import lombok.extern.apachecommons.CommonsLog;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.stereotype.Component;
+
 import javax.persistence.*;
 import java.time.LocalDate;
 
 @Entity
+@Component
 public class Person {
 
     @Id
@@ -14,6 +20,7 @@ public class Person {
 
     private String lastName;
 
+    @Value("#{T(java.time.LocalDate).parse('test')}")
     private LocalDate dateOfBirth;
 
     @Transient
@@ -22,13 +29,20 @@ public class Person {
     protected Person() {
     }
 
-    public Person(String firstName, String lastName, LocalDate dateOfBirth) {
+    /*
+    * //TODO: this part's not working properly
+    * */
+    @Autowired
+    public Person(@Value("some value") String firstName,
+                  @Value("some value") String lastName,
+                  @Value("00.00.000") LocalDate dateOfBirth) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.dateOfBirth = dateOfBirth;
         this.birthDay = false;
     }
 
+    @Autowired
     protected boolean setbirthDay(){
         int day = LocalDate.now().getDayOfMonth();
         int month = LocalDate.now().getMonth().getValue();

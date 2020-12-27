@@ -28,7 +28,7 @@ public class PersonServiceImpl implements ITPersonService {
 
     @Override
     public Person addPerson(Person person) {
-        this.setbirthDay(person);
+        //this.setbirthDay(person);
         return this.personRepository.save(person);
     }
 
