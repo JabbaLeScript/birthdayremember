@@ -27,33 +27,25 @@ public class Person {
     @JsonSerialize(using = LocalDateSerializer.class)
     private LocalDate dateOfBirth;
 
-    @Transient
+    @Transient()
     private boolean birthDay;
 
     public Person() {
     }
 
-    /*
-    * //TODO: this part's not working properly
-    * */
-    //@Autowired
-    /*public Person(String firstName,
-                  String lastName,
-                  LocalDate dateOfBirth) {
+    public Person(String firstName, String lastName, LocalDate dateOfBirth) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.dateOfBirth = dateOfBirth;
-        this.birthDay = false;
-    }*/
+    }
 
-
-    protected boolean setbirthDay(){
+    /*protected boolean setbirthDay(){
         int day = LocalDate.now().getDayOfMonth();
         int month = LocalDate.now().getMonth().getValue();
         int birthdayDay = this.dateOfBirth.getDayOfMonth();
         int birthdayMonth = this.dateOfBirth.getMonth().getValue();
         return day == birthdayDay && month == birthdayMonth;
-    }
+    }*/
 
     public int getId() {
         return id;

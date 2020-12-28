@@ -4,8 +4,11 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import java.time.DayOfWeek;
 import java.time.LocalDate;
 import java.time.Month;
+import java.util.Calendar;
+import java.util.Date;
 
 public class PersonTest {
 
@@ -13,10 +16,10 @@ public class PersonTest {
 
     @BeforeEach
     void setUp() {
-        LocalDate birthday = LocalDate.of(1992, Month.DECEMBER.getValue(), 26);
+        LocalDate birthday = LocalDate.now();
         LocalDate notBirthday = LocalDate.of(1992, Month.DECEMBER.getValue(), 27);
-        /*this.person = new Person("a","n", birthday);
-        this.person2 = new Person("b", "n", notBirthday);*/
+        this.person = new Person("a","n", birthday);
+        this.person2 = new Person("b", "n", notBirthday);
     }
 
     @Test
