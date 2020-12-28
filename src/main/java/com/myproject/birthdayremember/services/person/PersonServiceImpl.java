@@ -28,7 +28,7 @@ public class PersonServiceImpl implements ITPersonService {
 
     @Override
     public Person addPerson(Person person) {
-        //this.setbirthDay(person);
+        this.setbirthDay(person);
         return this.personRepository.save(person);
     }
 
@@ -58,13 +58,15 @@ public class PersonServiceImpl implements ITPersonService {
         return rPerson;
     }
 
-    private void setbirthDay(Person person){
-        int day = LocalDate.now().getDayOfMonth();
-        int month = LocalDate.now().getMonth().getValue();
-        int birthdayDay = person.getDateOfBirth().getDayOfMonth();
-        //int birthdayDay = this.dateOfBirth.getDayOfMonth();
-        int birthdayMonth = person.getDateOfBirth().getMonth().getValue();
-        if (day == birthdayDay && month == birthdayMonth) person.setBirthDay(true);
-        //return day == birthdayDay && month == birthdayMonth;
+    private void setbirthDay(Person person) {
+        if (person.getDateOfBirth() != null) {
+            int day = LocalDate.now().getDayOfMonth();
+            int month = LocalDate.now().getMonth().getValue();
+            int birthdayDay = person.getDateOfBirth().getDayOfMonth();
+            //int birthdayDay = this.dateOfBirth.getDayOfMonth();
+            int birthdayMonth = person.getDateOfBirth().getMonth().getValue();
+            if (day == birthdayDay && month == birthdayMonth) person.setBirthDay(true);
+            //return day == birthdayDay && month == birthdayMonth;
+        }
     }
 }
