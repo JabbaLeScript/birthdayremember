@@ -17,8 +17,12 @@ import java.util.List;
 @RequestMapping(PersonLink.BASE_URL)
 public class PersonRestController {
 
-    @Autowired
     private PersonServiceImpl personService;
+    
+    @Autowired
+    public PersonRestController(PersonServiceImpl personService) {
+        this.personService = personService;
+    }
 
     @PostMapping(PersonLink.PERSONS)
     @ResponseBody

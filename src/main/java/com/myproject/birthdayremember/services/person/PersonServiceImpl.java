@@ -12,8 +12,15 @@ import java.util.Optional;
 @Service
 public class PersonServiceImpl implements ITPersonService {
 
+    /*@Autowired
+    PersonRepository personRepository;*/
+
+    private PersonRepository personRepository;
+
     @Autowired
-    PersonRepository personRepository;
+    public PersonServiceImpl(PersonRepository personRepository) {
+        this.personRepository = personRepository;
+    }
 
     @Override
     public List<Person> findAll() {
