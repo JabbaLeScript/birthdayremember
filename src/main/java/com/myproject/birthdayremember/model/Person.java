@@ -1,5 +1,9 @@
 package com.myproject.birthdayremember.model;
 
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import com.fasterxml.jackson.datatype.jsr310.deser.LocalDateDeserializer;
+import com.fasterxml.jackson.datatype.jsr310.ser.LocalDateSerializer;
 import lombok.extern.apachecommons.CommonsLog;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -19,12 +23,14 @@ public class Person {
 
     private String lastName;
 
+    @JsonDeserialize(using = LocalDateDeserializer.class)
+    @JsonSerialize(using = LocalDateSerializer.class)
     private LocalDate dateOfBirth;
 
     @Transient
     private boolean birthDay;
 
-    protected Person() {
+    public Person() {
     }
 
     /*
@@ -74,16 +80,20 @@ public class Person {
     }
 
     @Autowired(required = true)
-    public void setFirstName(String name) {
-        this.firstName = name;
+    public void setFirstName(String firstName) {
+        this.firstName = firstName;
     }
     @Autowired(required = true)
-    public void setLastName(String surname) {
-        this.lastName = surname;
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
     }
     @Autowired(required = true)
     public void setDateOfBirth(LocalDate dateOfBirth) {
         this.dateOfBirth = dateOfBirth;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 
     @Override

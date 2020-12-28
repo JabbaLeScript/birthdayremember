@@ -15,8 +15,8 @@ public class PersonTest {
     void setUp() {
         LocalDate birthday = LocalDate.of(1992, Month.DECEMBER.getValue(), 26);
         LocalDate notBirthday = LocalDate.of(1992, Month.DECEMBER.getValue(), 27);
-        this.person = new Person("a","n", birthday);
-        this.person2 = new Person("b", "n", notBirthday);
+        /*this.person = new Person("a","n", birthday);
+        this.person2 = new Person("b", "n", notBirthday);*/
     }
 
     @Test
