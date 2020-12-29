@@ -4,16 +4,24 @@ import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.fasterxml.jackson.datatype.jsr310.deser.LocalDateDeserializer;
 import com.fasterxml.jackson.datatype.jsr310.ser.LocalDateSerializer;
-import lombok.extern.apachecommons.CommonsLog;
+import com.myproject.birthdayremember.listeners.PersonObserver;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
-import org.springframework.stereotype.Component;
 
 import javax.persistence.*;
+import java.beans.PropertyChangeEvent;
+import java.beans.PropertyChangeListener;
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 public class Person {
+
+    public static List<Person> personListToObserve = new ArrayList<>();
+
+    private static List<PropertyChangeListener> listeners = new ArrayList<>();
+
+    public static String BIRTHDAY = "birthday";
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -37,15 +45,10 @@ public class Person {
         this.firstName = firstName;
         this.lastName = lastName;
         this.dateOfBirth = dateOfBirth;
+        personListToObserve.add(this);
+        new PersonObserver(this);
     }
 
-    /*protected boolean setbirthDay(){
-        int day = LocalDate.now().getDayOfMonth();
-        int month = LocalDate.now().getMonth().getValue();
-        int birthdayDay = this.dateOfBirth.getDayOfMonth();
-        int birthdayMonth = this.dateOfBirth.getMonth().getValue();
-        return day == birthdayDay && month == birthdayMonth;
-    }*/
 
     public int getId() {
         return id;
@@ -67,8 +70,16 @@ public class Person {
         return birthDay;
     }
 
-    public void setBirthDay(boolean birthDay) {
-        this.birthDay = birthDay;
+    public void setBirthDay() {
+        int day = LocalDate.now().getDayOfMonth();
+        int month = LocalDate.now().getMonth().getValue();
+        int birthdayDay = this.dateOfBirth.getDayOfMonth();
+        int birthdayMonth = this.dateOfBirth.getMonth().getValue();
+        notifyListeners(this,
+                BIRTHDAY,
+                this.birthDay,
+                this.birthDay = day == birthdayDay && month == birthdayMonth);
+        //this.birthDay = day == birthdayDay && month == birthdayMonth;
     }
 
     @Autowired(required = true)
@@ -98,4 +109,17 @@ public class Person {
                 ", birthDay=" + birthDay +
                 '}';
     }
+
+    public void addChangeListener(PropertyChangeListener newListener)
+    {
+        listeners.add(newListener);
+
+    }
+
+    private void notifyListeners(Object object, String property, Object oldValue, Object newValue) {
+        for (PropertyChangeListener name : listeners) {
+            name.propertyChange(new PropertyChangeEvent(this, property, oldValue, newValue));
+        }
+    }
+
 }

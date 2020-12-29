@@ -4,11 +4,9 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import java.time.DayOfWeek;
 import java.time.LocalDate;
 import java.time.Month;
-import java.util.Calendar;
-import java.util.Date;
+import java.util.List;
 
 public class PersonTest {
 
@@ -30,5 +28,15 @@ public class PersonTest {
     @Test
     void whentodayisNotbirthday_thenBirdayIsFalse() {
         Assertions.assertFalse(person2.isBirthDay());
+    }
+
+    @Test
+    void whenInstantiatePerson_thenItsAddedInTheStaticPersonList(){
+        List<Person> personList = Person.personListToObserve;
+        Assertions.assertEquals(2, personList.size());
+    }
+
+    @Test
+    void name() {
     }
 }

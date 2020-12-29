@@ -1,5 +1,6 @@
 package com.myproject.birthdayremember.services.person;
 
+import com.myproject.birthdayremember.model.Model;
 import com.myproject.birthdayremember.model.Person;
 import com.myproject.birthdayremember.repositories.PersonRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,15 +28,14 @@ public class PersonServiceImpl implements ITPersonService {
         List<Person> allPersons = this.personRepository.findAll();
         for (Person person:allPersons
              ) {
-            this.setbirthDay(person);
+            person.setBirthDay();
         }
         return allPersons;
-        //return this.personRepository.findAll();
     }
 
     @Override
     public Person addPerson(Person person) {
-        this.setbirthDay(person);
+        person.setBirthDay();
         return this.personRepository.save(person);
     }
 
@@ -54,26 +54,17 @@ public class PersonServiceImpl implements ITPersonService {
     @Override
     public Person updatePerson(int personId, Person person) throws Exception {
         Optional<Person> optionalPerson = this.personRepository.findById(personId);
-        Person rPerson = optionalPerson.get();
+        if (optionalPerson.isPresent()) {
+            Person rPerson = optionalPerson.get();
 
-        rPerson.setFirstName(person.getFirstName());
-        rPerson.setLastName(person.getLastName());
-        rPerson.setDateOfBirth(person.getDateOfBirth());
-
-        this.setbirthDay(rPerson);
-        personRepository.save(rPerson);
-        return rPerson;
-    }
-
-    private void setbirthDay(Person person) {
-        if (person.getDateOfBirth() != null) {
-            int day = LocalDate.now().getDayOfMonth();
-            int month = LocalDate.now().getMonth().getValue();
-            int birthdayDay = person.getDateOfBirth().getDayOfMonth();
-            //int birthdayDay = this.dateOfBirth.getDayOfMonth();
-            int birthdayMonth = person.getDateOfBirth().getMonth().getValue();
-            if (day == birthdayDay && month == birthdayMonth) person.setBirthDay(true);
-            //return day == birthdayDay && month == birthdayMonth;
+            rPerson.setFirstName(person.getFirstName());
+            rPerson.setLastName(person.getLastName());
+            rPerson.setDateOfBirth(person.getDateOfBirth());
+            rPerson.setBirthDay();
+            personRepository.save(rPerson);
+            return rPerson;
         }
+        else return null;
     }
+
 }
