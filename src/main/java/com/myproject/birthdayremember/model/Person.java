@@ -122,4 +122,7 @@ public class Person {
         }
     }
 
+    public void setBirthDay(boolean birthDay) {
+        this.birthDay = birthDay;
+    }
 }
